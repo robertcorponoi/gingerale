@@ -1,5 +1,8 @@
 "use strict"
 
+export function Gingerale() {
+}
+
 /**
  * Creates an array of image elements generated from parsing a spritesheet
  * and 'cutting out' individual sprite frames by their height and width. The
@@ -17,7 +20,7 @@
  * sprites("./images/walking.png", { frameWidth: 32, frameHeight: 48 });
  * => [img (walking1), img (walking2), img (walking3)]
  */
-export async function sheetToSprites(image, options = {}) {
+Gingerale.prototype.sheetToSprites = function (image, options = {}) {
   if (!image) throw new Error('A spritesheet must be provided');
   if (!options.frameHeight || !options.frameWidth) throw new Error('The height and width of each individual frame must be specified');
 
@@ -66,4 +69,4 @@ export async function sheetToSprites(image, options = {}) {
       resolve(frames);
     }
   });
-}
+};

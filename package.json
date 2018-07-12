@@ -1,6 +1,6 @@
 {
   "name": "gingerale",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "GingerAle is a simple spritesheet to sprite converter for the browser. All it needs is a path to a spritesheet and the width and height of the individual sprites and it will return an array of image elements which you can use to display or work with further.",
   "scripts": {
     "test": "node_modules/.bin/mocha"
