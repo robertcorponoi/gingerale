@@ -10,7 +10,11 @@ const contentTypes = {
   html: 'text/html',
   css: 'text/css',
   js: 'text/javascript',
-  png: 'image/png'
+  png: 'image/png',
+  json: 'application/json',
+  m4a: 'audio/m4a',
+  txt: 'text/plain',
+  mp4: 'video/mp4'
 };
 
 app.listen(port);
@@ -28,18 +32,22 @@ async function handler(req, res) {
   const uri = url.parse(req.url).pathname;
   let filename = path.join(process.cwd(), uri);
 
-  let fileExists = await exists(filename).catch(() => reject(res));
-  if (fileExists.isDirectory()) filename = `${filename}\\test\\gingerale.html`;
+  try {
+    let fileExists = await checkFileExistsAysnc(filename);
+    if (fileExists.isDirectory()) filename = `${filename}\\index.html`;
 
-  let readFile = await read(filename).catch((err) => reject(res, 500, err));
+    let readFile = await readFileAsync(filename);
 
-  let headers = {};
-  let contentType = contentTypes[path.extname(filename).replace(".", "")];
-  headers['Content-Type'] = contentType;
+    let headers = {};
+    let contentType = contentTypes[path.extname(filename).replace(".", "")];
+    headers['Content-Type'] = contentType;
 
-  res.writeHead(200, headers);
-  res.write(readFile, 'binary');
-  res.end();
+    res.writeHead(200, headers);
+    res.write(readFile, 'binary');
+    res.end();
+  } catch (err) {
+    returnBadRequest(res, 400, err);
+  }
 }
 
 /**
@@ -49,7 +57,7 @@ async function handler(req, res) {
  * @param {string} file - The path to a file to check if it exists.
  * @returns {Promise}
  */
-const exists = function checkFileExistsAysnc(file) {
+const checkFileExistsAysnc = (file) => {
   return new Promise((resolve, reject) => {
     fs.stat(file, (err, stat) => {
       if (err) reject();
@@ -65,7 +73,7 @@ const exists = function checkFileExistsAysnc(file) {
  * @param {string} file - The path to a file to read.
  * @returns {Promise}
  */
-const read = function readFileAsync(file) {
+const readFileAsync = (file) => {
   return new Promise((resolve, reject) => {
     fs.readFile(file, "binary", (err, data) => {
       if (err) reject();
@@ -83,7 +91,7 @@ const read = function readFileAsync(file) {
  * @param {number} [code=404] - The http status code associated with the error.
  * @param {Error|string} [err='404 Not Found'] - The error to show on the page, defaults to 404.
  */
-const reject = function returnBadRequest(res, code = 404, err = '404 Not Found') {
+const returnBadRequest = (res, code = 404, err = '404 Not Found') => {
   res.writeHead(code, { 'Content-Type': 'text/plain' });
   res.write(`${err}\n`);
   res.end();
