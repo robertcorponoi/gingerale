@@ -1,6 +1,6 @@
 {
   "name": "gingerale",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps coming soon.",
   "scripts": {
     "test": "node_modules/.bin/mocha"
@@ -20,6 +20,5 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
-  },
-  "dependencies": {}
+  }
 }

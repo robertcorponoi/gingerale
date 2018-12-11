@@ -4,7 +4,7 @@
 
 <h1 align="center">Gingerale</h1>
 
-<p align="center">Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps coming soon.<p>
+<p align="center">Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps and texture packing coming soon.<p>
 
 <div align="center">
   <a href="https://badge.fury.io/js/gingerale"><img src="https://badge.fury.io/js/gingerale.svg" alt="npm version" height="18"></a>
@@ -24,7 +24,7 @@ $ npm install --save gingerale
 and to use it, you can import is as an ES6 module:
 
 ```js
-import { Gingerale } from './node_modules/gingerale/gingerale.js';
+import * as gingerale from './node_modules/gingerale/gingerale.js';
 ```
 
 or reference the script:
@@ -33,25 +33,15 @@ or reference the script:
 <script src='./node_modules/gingerale/gingerale.min.js'>
 ```
 
-## **Initialization**
-
-After installing Gingerale, it can be initialized like below:
-
-```js
-const gingerale = new Gingerale();
-```
-
-From here you can use any of the conversion features available.
-
 ## **API**
 
 Gingerale has two main methods supporting the two different types of spritesheets it can parse, `uniform` and `atlas` with a third on the way.
 
 Also, since loading of files such as image files is an asynchronous action, all methods in Gingerale return promises so you can either use `then` or `await` as shown in the examples below.
 
-### **uniform**
+### **spritesheetToSprites**
 
-The `uniform` method is used to get sprites from a uniform spritesheet. This means that every individual sprite in the provided spritesheet must have the same fixed width and height.
+The `spritesheetToSprites` method is used to get sprites from a uniform spritesheet. This means that every individual sprite in the provided spritesheet must have the same fixed width and height.
 
 | param  | type   | description                                   | default |
 |--------|--------|-----------------------------------------------|---------|
@@ -65,7 +55,7 @@ Using `Promise.then`:
 ```js
 // This will take a uniform spritesheet with every sprite in the sheet having a width
 // of 32px and a height of 48px.
-gingerale.uniform('./path/to/uniform.spritesheet.png', 32, 48).then((sprites) => {
+gingerale.spritesheetToSprites('./path/to/uniform.spritesheet.png', 32, 48).then((sprites) => {
 
   // Logs an array of the sprites from the uniform spritesheet.
   console.log(sprites);
@@ -82,7 +72,7 @@ async function main() {
   // This will take a uniform spritesheet with every sprite in the sheet having a width
   // of 32px and a height of 48px.
   // You should probably use `try, catch`
-  const sprites = gingerale.uniform('./path/to/uniform.spritesheet.png', 32, 48).catch((err) => console.log(err));
+  const sprites = gingerale.spritesheetToSprites('./path/to/uniform.spritesheet.png', 32, 48).catch((err) => console.log(err));
 
   // Logs an array of the sprites from the uniform spritesheet.
   console.log(sprites);
@@ -92,9 +82,9 @@ async function main() {
 main();
 ```
 
-### **atlas**
+### **atlasToSprites**
 
-The `atlas` method takes in a texture atlas image file and then accompanying JSON file which specifies where and what size the sprites are in the image file and returns an array of the individual sprites.
+The `atlasToSprites` method takes in a texture atlas image file and then accompanying JSON file which specifies where and what size the sprites are in the image file and returns an array of the individual sprites.
 
 | param | type   | description                                                | default |
 |-------|--------|------------------------------------------------------------|---------|
@@ -106,7 +96,7 @@ Using `Promise.then`:
 
 ```js
 // This will take a texture atlas spritesheet and JSON file and extract the sprites.
-gingerale.atlas('./path/to/atlas.spritesheet.png', './path/to/atlas.reference.json').then((sprites) => {
+gingerale.atlasToSprites('./path/to/atlas.spritesheet.png', './path/to/atlas.reference.json').then((sprites) => {
 
   // Logs an array of the sprites from the texture atlas.
   console.log(sprites);
@@ -122,7 +112,7 @@ async function main() {
 
   // This will take a texture atlas spritesheet and JSON file and extract the sprites.
   // You should probably use `try, catch`
-  const sprites = gingerale.atlas('./path/to/atlas.spritesheet.png', './path/to/atlas.reference.json').catch((err) => console.log(err));
+  const sprites = gingerale.atlasToSprites('./path/to/atlas.spritesheet.png', './path/to/atlas.reference.json').catch((err) => console.log(err));
 
   // Logs an array of the sprites from the texture atlas.
   console.log(sprites);
