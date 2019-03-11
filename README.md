@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" height="250" src="./Gingerale.png">
+  <img width="250" height="250" src="./gingerale.png">
 </p>
 
 <h1 align="center">Gingerale</h1>
