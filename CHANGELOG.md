@@ -1,3 +1,11 @@
+2.2.0
+==================
+
+* Updated dev dependencies to fix security vulnerabilities from packages.
+* Added the babel runtime helper to enable re-use of Babel's injected code.
+* Updated the .babelrc and rollup-configl.js file to reflect adding the babel runetime helper.
+
+
 2.1.0
 ==================
 

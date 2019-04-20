@@ -2,6 +2,8 @@
 
 import Options from './options/Options';
 
+import * as load from './utils/load';
+
 /**
  * GingerAle is a simple spritesheet to sprite converter for the browser. 
  * 
@@ -31,209 +33,146 @@ import Options from './options/Options';
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: Object = {}): Promise<Array<HTMLImageElement>> {
+export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: Object = {}): Promise<Array<HTMLImageElement>> {
 
-	const _options: Options = new Options(options);
+  const _options: Options = new Options(options);
 
-	const canvas: HTMLCanvasElement = document.createElement('canvas');
-	const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
+  const canvas: HTMLCanvasElement = document.createElement('canvas');
+  const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
-	const spritesheet: HTMLImageElement = new Image();
+  const spritesheet: HTMLImageElement = await load.image(src, _options.crossOrigin);
 
-	return new Promise((resolve, reject) => {
+  canvas.height = frameHeight;
+  canvas.width = frameWidth;
 
-		spritesheet.addEventListener('load', function spritesheetLoaded() {
+  let rows: number = Math.floor(spritesheet.height / frameHeight);
+  let cols: number = Math.floor(spritesheet.width / frameWidth);
 
-			canvas.height = frameHeight;
-			canvas.width = frameWidth;
+  let frame: HTMLImageElement;
+  let frames: Array<HTMLImageElement> = [];
 
-			let rows: number = Math.floor(spritesheet.height / frameHeight);
-			let cols: number = Math.floor(spritesheet.width / frameWidth);
+  let locX: number = 0;
+  let locY: number = 0;
 
-			let frame: HTMLImageElement;
-			let frames: Array<HTMLImageElement> = [];
+  let counter: number = 0;
 
-			let locX: number = 0;
-			let locY: number = 0;
+  for (let i = 0; i < rows; ++i) {
 
-			let counter: number = 0;
+    for (let j = 0; j < cols; ++j) {
 
-			for (let i = 0; i < rows; ++i) {
+      ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
 
-				for (let j = 0; j < cols; ++j) {
+      frame = new Image();
+      frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
-					ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+      frame.dataset.name = _options.name + counter;
 
-					frame = new Image();
-					frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+      frames.push(frame);
 
-					frame.dataset.name = _options.name + counter;
+      counter++;
 
-					frames.push(frame);
+      locX += frameWidth;
 
-					counter++;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-					locX += frameWidth;
+    }
 
-					ctx.clearRect(0, 0, canvas.width, canvas.height);
+    locY += frameHeight;
+    locX = 0;
 
-				}
+  }
 
-				locY += frameHeight;
-				locX = 0;
+  if (_options.download) {
 
-			}
+    for (let i = 0, len = frames.length; i < len; ++i) {
 
-			spritesheet.removeEventListener('load', spritesheetLoaded);
+      const link = document.createElement('a');
 
-			if (_options.download) {
+      link.href = frames[i].src;
+      link.download = `${_options.name}${i}.png`;
 
-				for (let i = 0, len = frames.length; i < len; ++i) {
+      link.click();
+      link.remove();
 
-					const link = document.createElement('a');
+    }
 
-					link.href = frames[i].src;
-					link.download = `${_options.name}${i}.png`;
+  }
 
-					link.click();
-					link.remove();
-
-				}
-
-			}
-
-			resolve(frames);
-
-		});
-
-		spritesheet.addEventListener('error', function spritesheetLoadError(err) {
-
-			spritesheet.removeEventListener('error', spritesheetLoadError);
-
-			reject(err);
-
-		});
-
-		spritesheet.crossOrigin = _options.crossOrigin;
-		spritesheet.src = src;
-
-	});
+  return frames;
 
 }
 
 /**
-* Takes a texture atlas spritesheet and the accompanying JSON file and it
-* returns the sprites as individual HTMLImageElement.
-* 
-* @since 0.1.0
-* 
-* @param {string} atlas The path to the atlas.
-* @param {string} json The path to the JSON file.
-* @param {Options} [options]
-* @param {string} [options.crossOrigin=null] Set the appropriate cross-origin property if the image is from another domain.
-* @param {boolean} [options.download=false] Set to true to also download the sprites.
-* 
-* @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
-*/
-export function atlasToSprites(atlasPath: string, jsonPath: string, options: Object = {}) {
+ * Takes a texture atlas spritesheet and the accompanying JSON file and it
+ * returns the sprites as individual HTMLImageElement.
+ * 
+ * @since 0.1.0
+ * 
+ * @param {string} atlas The path to the atlas.
+ * @param {string} json The path to the JSON file.
+ * @param {Options} [options]
+ * @param {string} [options.crossOrigin=null] Set the appropriate cross-origin property if the image is from another domain.
+ * @param {boolean} [options.download=false] Set to true to also download the sprites.
+ * 
+ * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
+ */
+export async function atlasToSprites(atlasPath: string, jsonPath: string, options: Object = {}): Promise<Array<HTMLImageElement>> {
 
-	const _options = new Options(options);
+  const _options = new Options(options);
 
-	const canvas: HTMLCanvasElement = document.createElement('canvas');
-	const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
+  const canvas: HTMLCanvasElement = document.createElement('canvas');
+  const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
-	const atlas: HTMLImageElement = new Image();
+  const atlas: HTMLImageElement = await load.image(atlasPath, _options.crossOrigin);
 
-	return new Promise((resolve, reject) => {
+  const spriteData = await load.XHR(jsonPath);
 
-		atlas.addEventListener('load', function atlasLoaded(data) {
+  let frames: any = [];
 
-			const atlasReference: XMLHttpRequest = new XMLHttpRequest();
+  Object.entries(spriteData.frames).forEach(([name, details]) => {
 
-			atlasReference.addEventListener('readystatechange', function atlasReferenceLoaded(data) {
+    const _details: any = details;
 
-				if (atlasReference.readyState === 4 && atlasReference.status === 200) {
+    const sprite: any = { name: null, frame: new Image() };
 
-					const spriteData: any = JSON.parse(atlasReference.responseText);
+    let frameWidth: number = _details.frame.w;
+    let frameHeight: number = _details.frame.h;
 
-					let frames: any = [];
+    if (_details.rotated) {
 
-					Object.entries(spriteData.frames).forEach(([name, details]) => {
+      frameWidth = _details.frame.h;
+      frameHeight = _details.frame.w;
 
-						const _details: any = details;
+    }   
 
-						const sprite: any = { name: null, frame: new Image() };
+    canvas.width = frameWidth;
+    canvas.height = frameHeight;
 
-						let frameWidth: number = _details.frame.w;
-						let frameHeight: number = _details.frame.h;
+    ctx.drawImage(atlas, _details.frame.x, _details.frame.y, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
 
-						if (_details.rotated) {
+    sprite.name = name;
+    sprite.frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
-							frameWidth = _details.frame.h;
-							frameHeight = _details.frame.w;
+    frames.push(sprite);
 
-						}
+  });
 
-						canvas.width = frameWidth;
-						canvas.height = frameHeight;
+  if (_options.download) {
 
-						ctx.drawImage(atlas, _details.frame.x, _details.frame.y, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+    for (const frame of frames) {
 
-						sprite.name = name;
-						sprite.frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+      const link: HTMLAnchorElement = document.createElement('a');
 
-						frames.push(sprite);
+      link.href = frame.frame.src;
+      link.download = frame.name
 
-					});
+      link.click();
+      link.remove();
 
-					atlasReference.removeEventListener('readystatechange', atlasReferenceLoaded);
+    }
 
-					if (_options.download) {
+  }
 
-						for (const frame of frames) {
-
-							const link: HTMLAnchorElement = document.createElement('a');
-
-							link.href = frame.frame.src;
-							link.download = frame.name
-
-							link.click();
-							link.remove();
-
-						}
-
-					}
-
-					resolve(frames);
-
-				}
-
-			});
-
-			atlasReference.addEventListener('error', function atlasReferenceError(err) {
-
-				atlasReference.removeEventListener('error', atlasReferenceError);
-
-				reject(err);
-
-			});
-
-			atlasReference.open('GET', jsonPath);
-			atlasReference.send();
-
-		});
-
-		atlas.addEventListener('error', function atlasError(err) {
-
-			atlas.removeEventListener('error', atlasError);
-
-			reject(err);
-
-		});
-
-		atlas.crossOrigin = _options.crossOrigin;
-		atlas.src = atlasPath;
-
-	});
+  return frames;
 
 }

@@ -1,13 +1,14 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
 
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Gingerale Tests</title>
 
-  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+  <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
 
 </head>
 
@@ -15,17 +16,21 @@
 
   <div id="mocha"></div>
 
-  <script src="../node_modules/mocha/mocha.js"></script>
-  <script src="../node_modules/chai/chai.js"></script>
+  <script src="https://unpkg.com/chai/chai.js"></script>
+  <script src="https://unpkg.com/mocha/mocha.js"></script>
 
-  <script>mocha.setup('bdd')</script>
-
-  <script type="module" src="../test/gingerale.spritesheet-to-sprites.test.js"></script>
-  <script type="module" src="../test/gingerale.atlas-to-sprites.test.js"></script>
-
-  <script type="module">
-
+  <script class="mocha-init" type="module">
+    
+    mocha.setup('bdd');
     mocha.checkLeaks();
+  
+  </script>
+
+  <script type="module" src="./gingerale.spritesheet-to-sprites.test.js"></script>
+  <script type="module" src="./gingerale.atlas-to-sprites.test.js"></script>
+
+  <script class="mocha-exec" type="module">
+
     mocha.run();
 
   </script>

@@ -17,7 +17,7 @@ export default {
 
 		commonjs(),
 
-		babel({ extensions, include: ['src/**/*'] }),
+		babel({ extensions, runtimeHelpers: true, include: ['src/**/*'] }),
 
 	],
 
