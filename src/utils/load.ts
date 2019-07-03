@@ -3,9 +3,6 @@
 /**
  * Loads an image and returns a promise containing the image.
  *
- * @version 0.1.0
- * @since 0.0.0
- *
  * @async
  *
  * @param {string} path The path to the image to load.
@@ -13,7 +10,7 @@
  *
  * @returns {Promise<HTMLImageElement>} Returns a promise containing the loaded image.
  */
-export async function image(path: string, crossOrigin: string): Promise<HTMLImageElement> {
+export async function image(path: string, crossOrigin: string = ''): Promise<HTMLImageElement> {
 
   const image: HTMLImageElement = new Image();
 
@@ -42,9 +39,6 @@ export async function image(path: string, crossOrigin: string): Promise<HTMLImag
 
 /**
  * Loads data from a file asynchronously and returns it in a JSON format.
- * 
- * @version 0.1.0
- * @since 2.2.0
  * 
  * @param {string} path The path to the file to load.
  * 
