@@ -2,26 +2,16 @@
 
 import * as load from './utils/load';
 
-import GeneralOptions from './options/GeneralOptions';
-import SpritesheetToSpritesOptions from './options/SpritesheetToSpritesOptions';
-import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
+// import GeneralOptions from './options/GeneralOptions';
+// import SpritesheetToSpritesOptions from './options/SpritesheetToSpritesOptions';
+// import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
 
-/**
- * GingerAle is a simple spritesheet to sprite converter for the browser. 
- * 
- * All it needs is a path to a spritesheet and the width and height of the individual sprites and it will return an array of image 
- * elements which you can use to display or work with further.
- * 
- * @author Robert Corponoi <robertcorponoi>
- * 
- * @version 2.3.0
- */
+import GeneralOptions from './interfaces/GeneralOptions';
+import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOptions';
 
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and 
  * height, and it returns the sprites as individual HTMLImageElement.
- * 
- * @since 0.1.0
  * 
  * @param {string} src The path to the spritesheet.
  * @param {number} frameWidth The width of every sprite in the spritesheet.
@@ -33,14 +23,14 @@ import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: any): Promise<Array<HTMLImageElement>> {
+export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: SpritesheetToSpritesOptions = {}): Promise<Array<HTMLImageElement>> {
 
-  const opts: SpritesheetToSpritesOptions = new SpritesheetToSpritesOptions(options);
+  const name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
 
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
-  const spritesheet: HTMLImageElement = await load.image(src, opts.crossOrigin);
+  const spritesheet: HTMLImageElement = await load.image(src, options.crossOrigin);
 
   canvas.height = frameHeight;
   canvas.width = frameWidth;
@@ -54,7 +44,7 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
   let locX: number = 0;
   let locY: number = 0;
 
-  let counter: number = 0;
+  let counter: number = 1;
 
   for (let i = 0; i < rows; ++i) {
 
@@ -65,7 +55,7 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
       frame = new Image();
       frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
-      frame.dataset.name = opts.name! + counter;
+      frame.dataset.name = `${name}-${counter}`;
 
       frames.push(frame);
 
@@ -82,14 +72,14 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
 
   }
 
-  if (opts.download) {
+  if (options.download) {
 
     for (let i = 0, len = frames.length; i < len; ++i) {
 
       const link = document.createElement('a');
 
       link.href = frames[i].src;
-      link.download = `${opts.name}${i}.png`;
+      link.download = `${name}${i}.png`;
 
       link.click();
       link.remove();
@@ -105,8 +95,6 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
 /**
  * Takes a texture atlas spritesheet and the accompanying JSON file and it returns the sprites as individual HTMLImageElement.
  * 
- * @since 0.1.0
- * 
  * @param {string} atlas The path to the atlas.
  * @param {string} json The path to the JSON file.
  * @param {Options} [options]
@@ -115,14 +103,12 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export async function atlasToSprites(atlasPath: string, jsonPath: string, options: any): Promise<Array<HTMLImageElement>> {
-
-  const opts: GeneralOptions = new GeneralOptions(options);
+export async function atlasToSprites(atlasPath: string, jsonPath: string, options: GeneralOptions = {}): Promise<Array<HTMLImageElement>> {
 
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
-  const atlas: HTMLImageElement = await load.image(atlasPath, opts.crossOrigin);
+  const atlas: HTMLImageElement = await load.image(atlasPath, options.crossOrigin);
 
   const spriteData = await load.XHR(jsonPath);
 
@@ -156,7 +142,7 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
 
   });
 
-  if (opts.download) {
+  if (options.download) {
 
     for (const frame of frames) {
 

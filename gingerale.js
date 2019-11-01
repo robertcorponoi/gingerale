@@ -902,194 +902,12 @@ function _XHR() {
   return _XHR.apply(this, arguments);
 }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-var classCallCheck = _classCallCheck;
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-var defineProperty = _defineProperty;
-
-var GeneralOptions =
-/**
- * Sets the cross-origin property of the image/images if downloading from an external source.
- * 
- * @property {string}
- * 
- * @default ''
- */
-
-/**
- * Indicates whether the resulting image/images should automatically download after the operation is finished.
- * 
- * @property {boolean}
- * 
- * @default false
- */
-
-/**
- * @param {Object} [options] The parameters passed for the options.
- */
-function GeneralOptions(options) {
-  classCallCheck(this, GeneralOptions);
-
-  defineProperty(this, "crossOrigin", '');
-
-  defineProperty(this, "download", false);
-
-  Object.assign(this, options);
-};
-
-var _typeof_1 = createCommonjsModule(function (module) {
-function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-function _typeof(obj) {
-  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return _typeof2(obj);
-    };
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
-    };
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-});
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-var assertThisInitialized = _assertThisInitialized;
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof_1(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return assertThisInitialized(self);
-}
-
-var possibleConstructorReturn = _possibleConstructorReturn;
-
-var getPrototypeOf = createCommonjsModule(function (module) {
-function _getPrototypeOf(o) {
-  module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-module.exports = _getPrototypeOf;
-});
-
-var setPrototypeOf = createCommonjsModule(function (module) {
-function _setPrototypeOf(o, p) {
-  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-module.exports = _setPrototypeOf;
-});
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) setPrototypeOf(subClass, superClass);
-}
-
-var inherits = _inherits;
-
-/**
- * Options that extend the general options and apply to just the `spritesheetToSprites` function.
- */
-
-var SpritesheetToSpritesOptions =
-/*#__PURE__*/
-function (_GeneralOptions) {
-  inherits(SpritesheetToSpritesOptions, _GeneralOptions);
-
-  /**
-   * Sets the name to prepend to each sprite.
-   * 
-   * @param {string}
-   * 
-   * @default ''
-   */
-
-  /**
-   * @param {Object} [options] The parameters passed for the options.
-   */
-  function SpritesheetToSpritesOptions(options) {
-    var _this;
-
-    classCallCheck(this, SpritesheetToSpritesOptions);
-
-    _this = possibleConstructorReturn(this, getPrototypeOf(SpritesheetToSpritesOptions).call(this));
-
-    defineProperty(assertThisInitialized(_this), "name", '');
-
-    Object.assign(assertThisInitialized(_this), options);
-    return _this;
-  }
-
-  return SpritesheetToSpritesOptions;
-}(GeneralOptions);
-
-/**
- * GingerAle is a simple spritesheet to sprite converter for the browser. 
- * 
- * All it needs is a path to a spritesheet and the width and height of the individual sprites and it will return an array of image 
- * elements which you can use to display or work with further.
- * 
- * @author Robert Corponoi <robertcorponoi>
- * 
- * @version 2.3.0
- */
+// import SpritesheetToSpritesOptions from './options/SpritesheetToSpritesOptions';
+// import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
 
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and 
  * height, and it returns the sprites as individual HTMLImageElement.
- * 
- * @since 0.1.0
  * 
  * @param {string} src The path to the spritesheet.
  * @param {number} frameWidth The width of every sprite in the spritesheet.
@@ -1101,13 +919,11 @@ function (_GeneralOptions) {
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-function spritesheetToSprites(_x, _x2, _x3, _x4) {
+function spritesheetToSprites(_x, _x2, _x3) {
   return _spritesheetToSprites.apply(this, arguments);
 }
 /**
  * Takes a texture atlas spritesheet and the accompanying JSON file and it returns the sprites as individual HTMLImageElement.
- * 
- * @since 0.1.0
  * 
  * @param {string} atlas The path to the atlas.
  * @param {string} json The path to the JSON file.
@@ -1121,20 +937,38 @@ function spritesheetToSprites(_x, _x2, _x3, _x4) {
 function _spritesheetToSprites() {
   _spritesheetToSprites = asyncToGenerator(
   /*#__PURE__*/
-  regenerator.mark(function _callee(src, frameWidth, frameHeight, options) {
-    var opts, canvas, ctx, spritesheet, rows, cols, frame, frames, locX, locY, counter, i, j, _i, len, link;
+  regenerator.mark(function _callee(src, frameWidth, frameHeight) {
+    var options,
+        name,
+        canvas,
+        ctx,
+        spritesheet,
+        rows,
+        cols,
+        frame,
+        frames,
+        locX,
+        locY,
+        counter,
+        i,
+        j,
+        _i,
+        len,
+        link,
+        _args = arguments;
 
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            opts = new SpritesheetToSpritesOptions(options);
+            options = _args.length > 3 && _args[3] !== undefined ? _args[3] : {};
+            name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
             canvas = document.createElement('canvas');
             ctx = canvas.getContext('2d');
-            _context.next = 5;
-            return image(src, opts.crossOrigin);
+            _context.next = 6;
+            return image(src, options.crossOrigin);
 
-          case 5:
+          case 6:
             spritesheet = _context.sent;
             canvas.height = frameHeight;
             canvas.width = frameWidth;
@@ -1143,14 +977,14 @@ function _spritesheetToSprites() {
             frames = [];
             locX = 0;
             locY = 0;
-            counter = 0;
+            counter = 1;
 
             for (i = 0; i < rows; ++i) {
               for (j = 0; j < cols; ++j) {
                 ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
                 frame = new Image();
                 frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-                frame.dataset.name = opts.name + counter;
+                frame.dataset.name = "".concat(name, "-").concat(counter);
                 frames.push(frame);
                 counter++;
                 locX += frameWidth;
@@ -1161,11 +995,11 @@ function _spritesheetToSprites() {
               locX = 0;
             }
 
-            if (opts.download) {
+            if (options.download) {
               for (_i = 0, len = frames.length; _i < len; ++_i) {
                 link = document.createElement('a');
                 link.href = frames[_i].src;
-                link.download = "".concat(opts.name).concat(_i, ".png");
+                link.download = "".concat(name).concat(_i, ".png");
                 link.click();
                 link.remove();
               }
@@ -1173,7 +1007,7 @@ function _spritesheetToSprites() {
 
             return _context.abrupt("return", frames);
 
-          case 17:
+          case 18:
           case "end":
             return _context.stop();
         }
@@ -1183,25 +1017,38 @@ function _spritesheetToSprites() {
   return _spritesheetToSprites.apply(this, arguments);
 }
 
-function atlasToSprites(_x5, _x6, _x7) {
+function atlasToSprites(_x4, _x5) {
   return _atlasToSprites.apply(this, arguments);
 }
 
 function _atlasToSprites() {
   _atlasToSprites = asyncToGenerator(
   /*#__PURE__*/
-  regenerator.mark(function _callee2(atlasPath, jsonPath, options) {
-    var opts, canvas, ctx, atlas, spriteData, frames, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, frame, link;
+  regenerator.mark(function _callee2(atlasPath, jsonPath) {
+    var options,
+        canvas,
+        ctx,
+        atlas,
+        spriteData,
+        frames,
+        _iteratorNormalCompletion,
+        _didIteratorError,
+        _iteratorError,
+        _iterator,
+        _step,
+        frame,
+        link,
+        _args2 = arguments;
 
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            opts = new GeneralOptions(options);
+            options = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : {};
             canvas = document.createElement('canvas');
             ctx = canvas.getContext('2d');
             _context2.next = 5;
-            return image(atlasPath, opts.crossOrigin);
+            return image(atlasPath, options.crossOrigin);
 
           case 5:
             atlas = _context2.sent;
@@ -1237,7 +1084,7 @@ function _atlasToSprites() {
               frames.push(sprite);
             });
 
-            if (!opts.download) {
+            if (!options.download) {
               _context2.next = 31;
               break;
             }

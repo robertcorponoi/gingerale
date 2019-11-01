@@ -1,3 +1,9 @@
+2.4.0 / 2019-11-01
+====================
+* Changed options for spritesheet to sprites to an interface.
+* Changed the default naming convention of sprites to use a name-number format.
+* Changed numbering to start at 1 for readability.
+
 2.3.0 / 2019-11-01
 ====================
 * [FEATURE] Updated all dev dependencies to their latest version.

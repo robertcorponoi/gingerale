@@ -1,18 +1,8 @@
-/**
- * GingerAle is a simple spritesheet to sprite converter for the browser.
- *
- * All it needs is a path to a spritesheet and the width and height of the individual sprites and it will return an array of image
- * elements which you can use to display or work with further.
- *
- * @author Robert Corponoi <robertcorponoi>
- *
- * @version 2.3.0
- */
+import GeneralOptions from './interfaces/GeneralOptions';
+import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOptions';
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and
  * height, and it returns the sprites as individual HTMLImageElement.
- *
- * @since 0.1.0
  *
  * @param {string} src The path to the spritesheet.
  * @param {number} frameWidth The width of every sprite in the spritesheet.
@@ -24,11 +14,9 @@
  *
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export declare function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: any): Promise<Array<HTMLImageElement>>;
+export declare function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options?: SpritesheetToSpritesOptions): Promise<Array<HTMLImageElement>>;
 /**
  * Takes a texture atlas spritesheet and the accompanying JSON file and it returns the sprites as individual HTMLImageElement.
- *
- * @since 0.1.0
  *
  * @param {string} atlas The path to the atlas.
  * @param {string} json The path to the JSON file.
@@ -38,4 +26,4 @@ export declare function spritesheetToSprites(src: string, frameWidth: number, fr
  *
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export declare function atlasToSprites(atlasPath: string, jsonPath: string, options: any): Promise<Array<HTMLImageElement>>;
+export declare function atlasToSprites(atlasPath: string, jsonPath: string, options?: GeneralOptions): Promise<Array<HTMLImageElement>>;
