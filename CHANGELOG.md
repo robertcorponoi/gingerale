@@ -1,10 +1,10 @@
-2.3.1 / 2019-07-17
+2.2.2 / 2019-11-01
+====================
+* [FEATURE] Updated all dev dependencies to their latest version.
+
+2.2.1 / 2019-07-17
 ====================
 * [HOTFIX] Updated all dev dependencies to their latest versions and fixed any security vulnerabilities found in them.
-
-2.3.0 / 2019-07-01
-====================
-* Updated all dependencies
 
 2.2.0
 ====================

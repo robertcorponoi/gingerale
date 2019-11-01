@@ -5,6 +5,10 @@ function _arrayWithHoles(arr) {
 var arrayWithHoles = _arrayWithHoles;
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -1187,7 +1191,7 @@ function _atlasToSprites() {
   _atlasToSprites = asyncToGenerator(
   /*#__PURE__*/
   regenerator.mark(function _callee2(atlasPath, jsonPath, options) {
-    var opts, canvas, ctx, atlas, spriteData, frames, _i2, _frames, frame, link;
+    var opts, canvas, ctx, atlas, spriteData, frames, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, frame, link;
 
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
@@ -1233,25 +1237,67 @@ function _atlasToSprites() {
               frames.push(sprite);
             });
 
-            if (opts.download) {
-              for (_i2 = 0, _frames = frames; _i2 < _frames.length; _i2++) {
-                frame = _frames[_i2];
-                link = document.createElement('a');
-                link.href = frame.frame.src;
-                link.download = frame.name;
-                link.click();
-                link.remove();
-              }
+            if (!opts.download) {
+              _context2.next = 31;
+              break;
             }
 
+            _iteratorNormalCompletion = true;
+            _didIteratorError = false;
+            _iteratorError = undefined;
+            _context2.prev = 15;
+
+            for (_iterator = frames[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              frame = _step.value;
+              link = document.createElement('a');
+              link.href = frame.frame.src;
+              link.download = frame.name;
+              link.click();
+              link.remove();
+            }
+
+            _context2.next = 23;
+            break;
+
+          case 19:
+            _context2.prev = 19;
+            _context2.t0 = _context2["catch"](15);
+            _didIteratorError = true;
+            _iteratorError = _context2.t0;
+
+          case 23:
+            _context2.prev = 23;
+            _context2.prev = 24;
+
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+
+          case 26:
+            _context2.prev = 26;
+
+            if (!_didIteratorError) {
+              _context2.next = 29;
+              break;
+            }
+
+            throw _iteratorError;
+
+          case 29:
+            return _context2.finish(26);
+
+          case 30:
+            return _context2.finish(23);
+
+          case 31:
             return _context2.abrupt("return", frames);
 
-          case 13:
+          case 32:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, null, [[15, 19, 23, 31], [24,, 26, 30]]);
   }));
   return _atlasToSprites.apply(this, arguments);
 }
