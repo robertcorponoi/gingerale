@@ -1,6 +1,6 @@
 {
   "name": "gingerale",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "module": "gingerale.js",
   "description": "Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps coming soon.",
   "scripts": {

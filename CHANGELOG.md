@@ -1,4 +1,4 @@
-2.2.2 / 2019-11-01
+2.3.0 / 2019-11-01
 ====================
 * [FEATURE] Updated all dev dependencies to their latest version.
 
