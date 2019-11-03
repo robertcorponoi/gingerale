@@ -1,3 +1,7 @@
+2.5.0 / 2019-11-03
+====================
+* [FEATURE] Removed interfaces for options as they just made the code more messy and it wouldn't recognize not passing the options parameter when used in outside projects.
+
 2.4.1 / 2019-11-03
 ====================
 * [FEATURE] Updated dependencies to their latest versions.

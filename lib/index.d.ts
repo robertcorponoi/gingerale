@@ -1,5 +1,3 @@
-import GeneralOptions from './interfaces/GeneralOptions';
-import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOptions';
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and
  * height, and it returns the sprites as individual HTMLImageElement.
@@ -14,7 +12,7 @@ import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOption
  *
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export declare function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options?: SpritesheetToSpritesOptions): Promise<Array<HTMLImageElement>>;
+export declare function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options?: any): Promise<Array<HTMLImageElement>>;
 /**
  * Takes a texture atlas spritesheet and the accompanying JSON file and it returns the sprites as individual HTMLImageElement.
  *
@@ -26,4 +24,4 @@ export declare function spritesheetToSprites(src: string, frameWidth: number, fr
  *
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export declare function atlasToSprites(atlasPath: string, jsonPath: string, options?: GeneralOptions): Promise<Array<HTMLImageElement>>;
+export declare function atlasToSprites(atlasPath: string, jsonPath: string, options?: any): Promise<Array<HTMLImageElement>>;

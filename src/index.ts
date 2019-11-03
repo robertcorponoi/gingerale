@@ -2,13 +2,6 @@
 
 import * as load from './utils/load';
 
-// import GeneralOptions from './options/GeneralOptions';
-// import SpritesheetToSpritesOptions from './options/SpritesheetToSpritesOptions';
-// import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
-
-import GeneralOptions from './interfaces/GeneralOptions';
-import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOptions';
-
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and 
  * height, and it returns the sprites as individual HTMLImageElement.
@@ -23,7 +16,7 @@ import SpritesheetToSpritesOptions from './interfaces/SpritesheetToSpritesOption
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: SpritesheetToSpritesOptions = {}): Promise<Array<HTMLImageElement>> {
+export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: any = {}): Promise<Array<HTMLImageElement>> {
 
   const name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
 
@@ -103,7 +96,7 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
-export async function atlasToSprites(atlasPath: string, jsonPath: string, options: GeneralOptions = {}): Promise<Array<HTMLImageElement>> {
+export async function atlasToSprites(atlasPath: string, jsonPath: string, options: any = {}): Promise<Array<HTMLImageElement>> {
 
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;

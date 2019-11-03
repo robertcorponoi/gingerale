@@ -902,9 +902,6 @@ function _XHR() {
   return _XHR.apply(this, arguments);
 }
 
-// import SpritesheetToSpritesOptions from './options/SpritesheetToSpritesOptions';
-// import SpritesToSpritesheetOptions from './options/SpritesToSpritesheetOptions';
-
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and 
  * height, and it returns the sprites as individual HTMLImageElement.
@@ -919,6 +916,7 @@ function _XHR() {
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
+
 function spritesheetToSprites(_x, _x2, _x3) {
   return _spritesheetToSprites.apply(this, arguments);
 }
