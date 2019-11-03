@@ -7,10 +7,14 @@
 <p align="center">Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps and texture packing coming soon.<p>
 
 <div align="center">
-  <a href="https://badge.fury.io/js/gingerale"><img src="https://badge.fury.io/js/gingerale.svg" alt="npm version" height="18"></a>
-  <a href="https://badge.fury.io/js/gingerale"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="build" height="18"></a>
+
+  [![NPM version](https://img.shields.io/npm/v/gingerale.svg?style=flat)](https://www.npmjs.com/package/gingerale)
+  [![Known Vulnerabilities](https://snyk.io/test/github/robertcorponoi/gingerale/badge.svg)](https://snyk.io/test/github/robertcorponoi/gingerale)
+  [![NPM downloads](https://img.shields.io/npm/dm/gingerale.svg?style=flat)](https://www.npmjs.com/package/gingerale)
   <a href="https://badge.fury.io/js/gingerale"><img src="https://img.shields.io/github/issues/robertcorponoi/gingerale.svg" alt="issues" height="18"></a>
   <a href="https://badge.fury.io/js/gingerale"><img src="https://img.shields.io/github/license/robertcorponoi/gingerale.svg" alt="license" height="18"></a>
+  [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/robertcorponoi)
+
 </div>
 
 ## **Installation**
@@ -24,13 +28,11 @@ $ npm install --save gingerale
 and to use it, you can import is as an ES6 module:
 
 ```js
+// Webpack
+import * as gingerale from 'gingerale';
+
+// Browser
 import * as gingerale from './node_modules/gingerale/gingerale.js';
-```
-
-or reference the script:
-
-```html
-<script src='./node_modules/gingerale/gingerale.min.js'>
 ```
 
 ## **API**

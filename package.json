@@ -1,6 +1,6 @@
 {
   "name": "gingerale",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "module": "gingerale.js",
   "description": "Gingerale is a simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlas' with support for tilemaps coming soon.",
   "scripts": {
@@ -36,7 +36,7 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
-    "rollup": "^1.26.2",
+    "rollup": "^1.26.3",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",

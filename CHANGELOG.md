@@ -1,3 +1,8 @@
+2.4.1 / 2019-11-03
+====================
+* [FEATURE] Updated dependencies to their latest versions.
+* [MISC] Added more badges to README.
+
 2.4.0 / 2019-11-01
 ====================
 * Changed options for spritesheet to sprites to an interface.
