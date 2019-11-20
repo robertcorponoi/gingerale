@@ -1,3 +1,9 @@
+2.5.1 / 2019-11-20
+====================
+* [FEATURE] Removed anys in favor of Sprite and SpriteData interfaces.
+* [MISC] Updated dependencies to their latest versions.
+* [MISC] Added badges to README.
+
 2.5.0 / 2019-11-03
 ====================
 * [FEATURE] Removed interfaces for options as they just made the code more messy and it wouldn't recognize not passing the options parameter when used in outside projects.

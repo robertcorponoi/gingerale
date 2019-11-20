@@ -782,46 +782,33 @@ try {
 
 var regenerator = runtime_1;
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
+function image(path) {
+  var crossOrigin,
+      image,
+      _args = arguments;
+  return regenerator.async(function image$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          crossOrigin = _args.length > 1 && _args[1] !== undefined ? _args[1] : '';
+          image = new Image();
+          return _context.abrupt("return", new Promise(function (resolve, reject) {
+            image.addEventListener('load', function () {
+              resolve(image);
+            });
+            image.addEventListener('error', function (error) {
+              reject(error);
+            });
+            image.src = path;
+            if (crossOrigin) image.crossOrigin = crossOrigin;
+          }));
 
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+        case 3:
+        case "end":
+          return _context.stop();
       }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
-
-var asyncToGenerator = _asyncToGenerator;
-
-function image(_x) {
-  return _image.apply(this, arguments);
+    }
+  });
 }
 /**
  * Loads data from a file asynchronously and returns it in a JSON format.
@@ -831,75 +818,32 @@ function image(_x) {
  * @returns {Promise<any>} Returns the JSON data in a promise.
  */
 
-function _image() {
-  _image = asyncToGenerator(
-  /*#__PURE__*/
-  regenerator.mark(function _callee(path) {
-    var crossOrigin,
-        image,
-        _args = arguments;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            crossOrigin = _args.length > 1 && _args[1] !== undefined ? _args[1] : '';
-            image = new Image();
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              image.addEventListener('load', function () {
-                resolve(image);
-              });
-              image.addEventListener('error', function (error) {
-                reject(error);
-              });
-              image.src = path;
-              if (crossOrigin) image.crossOrigin = crossOrigin;
-            }));
+function XHR(path) {
+  return regenerator.async(function XHR$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          return _context2.abrupt("return", new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener('readystatechange', function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                resolve(response);
+              }
+            });
+            xhr.addEventListener('error', function (error) {
+              reject(error);
+            });
+            xhr.open('GET', path);
+            xhr.send();
+          }));
 
-          case 3:
-          case "end":
-            return _context.stop();
-        }
+        case 1:
+        case "end":
+          return _context2.stop();
       }
-    }, _callee);
-  }));
-  return _image.apply(this, arguments);
-}
-
-function XHR(_x2) {
-  return _XHR.apply(this, arguments);
-}
-
-function _XHR() {
-  _XHR = asyncToGenerator(
-  /*#__PURE__*/
-  regenerator.mark(function _callee2(path) {
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            return _context2.abrupt("return", new Promise(function (resolve, reject) {
-              var xhr = new XMLHttpRequest();
-              xhr.addEventListener('readystatechange', function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                  var response = JSON.parse(xhr.responseText);
-                  resolve(response);
-                }
-              });
-              xhr.addEventListener('error', function (error) {
-                reject(error);
-              });
-              xhr.open('GET', path);
-              xhr.send();
-            }));
-
-          case 1:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _XHR.apply(this, arguments);
+    }
+  });
 }
 
 /**
@@ -916,9 +860,82 @@ function _XHR() {
  * 
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
+function spritesheetToSprites(src, frameWidth, frameHeight) {
+  var options,
+      name,
+      canvas,
+      ctx,
+      spritesheet,
+      rows,
+      cols,
+      frame,
+      frames,
+      locX,
+      locY,
+      counter,
+      i,
+      j,
+      _i,
+      len,
+      link,
+      _args = arguments;
 
-function spritesheetToSprites(_x, _x2, _x3) {
-  return _spritesheetToSprites.apply(this, arguments);
+  return regenerator.async(function spritesheetToSprites$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          options = _args.length > 3 && _args[3] !== undefined ? _args[3] : {};
+          name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
+          canvas = document.createElement('canvas');
+          ctx = canvas.getContext('2d');
+          _context.next = 6;
+          return regenerator.awrap(image(src, options.crossOrigin));
+
+        case 6:
+          spritesheet = _context.sent;
+          canvas.height = frameHeight;
+          canvas.width = frameWidth;
+          rows = Math.floor(spritesheet.height / frameHeight);
+          cols = Math.floor(spritesheet.width / frameWidth);
+          frames = [];
+          locX = 0;
+          locY = 0;
+          counter = 1;
+
+          for (i = 0; i < rows; ++i) {
+            for (j = 0; j < cols; ++j) {
+              ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+              frame = new Image();
+              frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+              frame.dataset.name = "".concat(name, "-").concat(counter);
+              frames.push(frame);
+              counter++;
+              locX += frameWidth;
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            locY += frameHeight;
+            locX = 0;
+          }
+
+          if (options.download) {
+            for (_i = 0, len = frames.length; _i < len; ++_i) {
+              link = document.createElement('a');
+              link.href = frames[_i].src;
+              link.download = "".concat(name).concat(_i, ".png");
+              link.click();
+              link.remove();
+            }
+          }
+
+          return _context.abrupt("return", frames);
+
+        case 18:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
 }
 /**
  * Takes a texture atlas spritesheet and the accompanying JSON file and it returns the sprites as individual HTMLImageElement.
@@ -932,219 +949,127 @@ function spritesheetToSprites(_x, _x2, _x3) {
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
 
-function _spritesheetToSprites() {
-  _spritesheetToSprites = asyncToGenerator(
-  /*#__PURE__*/
-  regenerator.mark(function _callee(src, frameWidth, frameHeight) {
-    var options,
-        name,
-        canvas,
-        ctx,
-        spritesheet,
-        rows,
-        cols,
-        frame,
-        frames,
-        locX,
-        locY,
-        counter,
-        i,
-        j,
-        _i,
-        len,
-        link,
-        _args = arguments;
+function atlasToSprites(atlasPath, jsonPath) {
+  var options,
+      canvas,
+      ctx,
+      atlas,
+      spriteData,
+      frames,
+      _iteratorNormalCompletion,
+      _didIteratorError,
+      _iteratorError,
+      _iterator,
+      _step,
+      frame,
+      link,
+      _args2 = arguments;
 
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            options = _args.length > 3 && _args[3] !== undefined ? _args[3] : {};
-            name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
-            canvas = document.createElement('canvas');
-            ctx = canvas.getContext('2d');
-            _context.next = 6;
-            return image(src, options.crossOrigin);
+  return regenerator.async(function atlasToSprites$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          options = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : {};
+          canvas = document.createElement('canvas');
+          ctx = canvas.getContext('2d');
+          _context2.next = 5;
+          return regenerator.awrap(image(atlasPath, options.crossOrigin));
 
-          case 6:
-            spritesheet = _context.sent;
-            canvas.height = frameHeight;
+        case 5:
+          atlas = _context2.sent;
+          _context2.next = 8;
+          return regenerator.awrap(XHR(jsonPath));
+
+        case 8:
+          spriteData = _context2.sent;
+          frames = [];
+          Object.entries(spriteData.frames).forEach(function (_ref) {
+            var _ref2 = slicedToArray(_ref, 2),
+                name = _ref2[0],
+                details = _ref2[1];
+
+            var _details = details;
+            var sprite = {
+              name: '',
+              frame: new Image()
+            };
+            var frameWidth = _details.frame.w;
+            var frameHeight = _details.frame.h;
+
+            if (_details.rotated) {
+              frameWidth = _details.frame.h;
+              frameHeight = _details.frame.w;
+            }
+
             canvas.width = frameWidth;
-            rows = Math.floor(spritesheet.height / frameHeight);
-            cols = Math.floor(spritesheet.width / frameWidth);
-            frames = [];
-            locX = 0;
-            locY = 0;
-            counter = 1;
+            canvas.height = frameHeight;
+            ctx.drawImage(atlas, _details.frame.x, _details.frame.y, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+            sprite.name = name;
+            sprite.frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+            frames.push(sprite);
+          });
 
-            for (i = 0; i < rows; ++i) {
-              for (j = 0; j < cols; ++j) {
-                ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
-                frame = new Image();
-                frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-                frame.dataset.name = "".concat(name, "-").concat(counter);
-                frames.push(frame);
-                counter++;
-                locX += frameWidth;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-              }
-
-              locY += frameHeight;
-              locX = 0;
-            }
-
-            if (options.download) {
-              for (_i = 0, len = frames.length; _i < len; ++_i) {
-                link = document.createElement('a');
-                link.href = frames[_i].src;
-                link.download = "".concat(name).concat(_i, ".png");
-                link.click();
-                link.remove();
-              }
-            }
-
-            return _context.abrupt("return", frames);
-
-          case 18:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _spritesheetToSprites.apply(this, arguments);
-}
-
-function atlasToSprites(_x4, _x5) {
-  return _atlasToSprites.apply(this, arguments);
-}
-
-function _atlasToSprites() {
-  _atlasToSprites = asyncToGenerator(
-  /*#__PURE__*/
-  regenerator.mark(function _callee2(atlasPath, jsonPath) {
-    var options,
-        canvas,
-        ctx,
-        atlas,
-        spriteData,
-        frames,
-        _iteratorNormalCompletion,
-        _didIteratorError,
-        _iteratorError,
-        _iterator,
-        _step,
-        frame,
-        link,
-        _args2 = arguments;
-
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            options = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : {};
-            canvas = document.createElement('canvas');
-            ctx = canvas.getContext('2d');
-            _context2.next = 5;
-            return image(atlasPath, options.crossOrigin);
-
-          case 5:
-            atlas = _context2.sent;
-            _context2.next = 8;
-            return XHR(jsonPath);
-
-          case 8:
-            spriteData = _context2.sent;
-            frames = [];
-            Object.entries(spriteData.frames).forEach(function (_ref) {
-              var _ref2 = slicedToArray(_ref, 2),
-                  name = _ref2[0],
-                  details = _ref2[1];
-
-              var _details = details;
-              var sprite = {
-                name: null,
-                frame: new Image()
-              };
-              var frameWidth = _details.frame.w;
-              var frameHeight = _details.frame.h;
-
-              if (_details.rotated) {
-                frameWidth = _details.frame.h;
-                frameHeight = _details.frame.w;
-              }
-
-              canvas.width = frameWidth;
-              canvas.height = frameHeight;
-              ctx.drawImage(atlas, _details.frame.x, _details.frame.y, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
-              sprite.name = name;
-              sprite.frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-              frames.push(sprite);
-            });
-
-            if (!options.download) {
-              _context2.next = 31;
-              break;
-            }
-
-            _iteratorNormalCompletion = true;
-            _didIteratorError = false;
-            _iteratorError = undefined;
-            _context2.prev = 15;
-
-            for (_iterator = frames[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              frame = _step.value;
-              link = document.createElement('a');
-              link.href = frame.frame.src;
-              link.download = frame.name;
-              link.click();
-              link.remove();
-            }
-
-            _context2.next = 23;
+          if (!options.download) {
+            _context2.next = 31;
             break;
+          }
 
-          case 19:
-            _context2.prev = 19;
-            _context2.t0 = _context2["catch"](15);
-            _didIteratorError = true;
-            _iteratorError = _context2.t0;
+          _iteratorNormalCompletion = true;
+          _didIteratorError = false;
+          _iteratorError = undefined;
+          _context2.prev = 15;
 
-          case 23:
-            _context2.prev = 23;
-            _context2.prev = 24;
+          for (_iterator = frames[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            frame = _step.value;
+            link = document.createElement('a');
+            link.href = frame.frame.src;
+            link.download = frame.name;
+            link.click();
+            link.remove();
+          }
 
-            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-              _iterator["return"]();
-            }
+          _context2.next = 23;
+          break;
 
-          case 26:
-            _context2.prev = 26;
+        case 19:
+          _context2.prev = 19;
+          _context2.t0 = _context2["catch"](15);
+          _didIteratorError = true;
+          _iteratorError = _context2.t0;
 
-            if (!_didIteratorError) {
-              _context2.next = 29;
-              break;
-            }
+        case 23:
+          _context2.prev = 23;
+          _context2.prev = 24;
 
-            throw _iteratorError;
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
 
-          case 29:
-            return _context2.finish(26);
+        case 26:
+          _context2.prev = 26;
 
-          case 30:
-            return _context2.finish(23);
+          if (!_didIteratorError) {
+            _context2.next = 29;
+            break;
+          }
 
-          case 31:
-            return _context2.abrupt("return", frames);
+          throw _iteratorError;
 
-          case 32:
-          case "end":
-            return _context2.stop();
-        }
+        case 29:
+          return _context2.finish(26);
+
+        case 30:
+          return _context2.finish(23);
+
+        case 31:
+          return _context2.abrupt("return", frames);
+
+        case 32:
+        case "end":
+          return _context2.stop();
       }
-    }, _callee2, null, [[15, 19, 23, 31], [24,, 26, 30]]);
-  }));
-  return _atlasToSprites.apply(this, arguments);
+    }
+  }, null, null, [[15, 19, 23, 31], [24,, 26, 30]]);
 }
 
 export { atlasToSprites, spritesheetToSprites };

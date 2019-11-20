@@ -2,6 +2,9 @@
 
 import * as load from './utils/load';
 
+import Sprite from './interfaces/Sprite';
+import SpriteData from './interfaces/SpriteData';
+
 /**
  * Takes a spritesheet with uniform sized sprites, meaning that each individual sprite within the spritesheet has the same width and 
  * height, and it returns the sprites as individual HTMLImageElement.
@@ -18,7 +21,7 @@ import * as load from './utils/load';
  */
 export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: any = {}): Promise<Array<HTMLImageElement>> {
 
-  const name = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
+  const name: string = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
 
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
@@ -39,9 +42,9 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
 
   let counter: number = 1;
 
-  for (let i = 0; i < rows; ++i) {
+  for (let i: number = 0; i < rows; ++i) {
 
-    for (let j = 0; j < cols; ++j) {
+    for (let j: number = 0; j < cols; ++j) {
 
       ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
 
@@ -67,7 +70,7 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
 
   if (options.download) {
 
-    for (let i = 0, len = frames.length; i < len; ++i) {
+    for (let i: number = 0, len: number = frames.length; i < len; ++i) {
 
       const link = document.createElement('a');
 
@@ -103,7 +106,7 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
 
   const atlas: HTMLImageElement = await load.image(atlasPath, options.crossOrigin);
 
-  const spriteData = await load.XHR(jsonPath);
+  const spriteData: SpriteData = await load.XHR(jsonPath);
 
   let frames: any = [];
 
@@ -111,17 +114,18 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
 
     const _details: any = details;
 
-    const sprite: any = { name: null, frame: new Image() };
+    const sprite: Sprite = {
+      name: '',
+      frame: new Image()
+    };
 
     let frameWidth: number = _details.frame.w;
     let frameHeight: number = _details.frame.h;
 
     if (_details.rotated) {
-
       frameWidth = _details.frame.h;
       frameHeight = _details.frame.w;
-
-    }   
+    }
 
     canvas.width = frameWidth;
     canvas.height = frameHeight;

@@ -10,6 +10,7 @@
 
   [![NPM version](https://img.shields.io/npm/v/gingerale.svg?style=flat)](https://www.npmjs.com/package/gingerale)
   [![Known Vulnerabilities](https://snyk.io/test/github/robertcorponoi/gingerale/badge.svg)](https://snyk.io/test/github/robertcorponoi/gingerale)
+  ![npm](https://img.shields.io/npm/dt/gingerale)
   [![NPM downloads](https://img.shields.io/npm/dm/gingerale.svg?style=flat)](https://www.npmjs.com/package/gingerale)
   <a href="https://badge.fury.io/js/gingerale"><img src="https://img.shields.io/github/issues/robertcorponoi/gingerale.svg" alt="issues" height="18"></a>
   <a href="https://badge.fury.io/js/gingerale"><img src="https://img.shields.io/github/license/robertcorponoi/gingerale.svg" alt="license" height="18"></a>
