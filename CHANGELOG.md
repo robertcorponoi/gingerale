@@ -1,3 +1,10 @@
+2.5.2 / 2020-01-17
+==================
+* [MISC] Updated dev dependencies to their latest version.
+* [MISC] Changed license year to reflect new year.
+* [MISC] Moved logo to graphics repository and updated the link to it in the README.
+* [MISC] Removed unnecessary spacing.
+
 2.5.1 / 2019-11-20
 ====================
 * [FEATURE] Removed anys in favor of Sprite and SpriteData interfaces.

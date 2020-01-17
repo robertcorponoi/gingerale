@@ -20,7 +20,6 @@ import SpriteData from './interfaces/SpriteData';
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
 export async function spritesheetToSprites(src: string, frameWidth: number, frameHeight: number, options: any = {}): Promise<Array<HTMLImageElement>> {
-
   const name: string = options.name ? options.name : src.replace(/^.*[\\\/]/, '').substr(0, src.lastIndexOf('.'));
 
   const canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -43,9 +42,7 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
   let counter: number = 1;
 
   for (let i: number = 0; i < rows; ++i) {
-
     for (let j: number = 0; j < cols; ++j) {
-
       ctx.drawImage(spritesheet, locX, locY, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
 
       frame = new Image();
@@ -60,18 +57,14 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
       locX += frameWidth;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     }
 
     locY += frameHeight;
     locX = 0;
-
   }
 
   if (options.download) {
-
     for (let i: number = 0, len: number = frames.length; i < len; ++i) {
-
       const link = document.createElement('a');
 
       link.href = frames[i].src;
@@ -79,13 +72,10 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
 
       link.click();
       link.remove();
-
     }
-
   }
 
   return frames;
-
 }
 
 /**
@@ -100,7 +90,6 @@ export async function spritesheetToSprites(src: string, frameWidth: number, fram
  * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites.
  */
 export async function atlasToSprites(atlasPath: string, jsonPath: string, options: any = {}): Promise<Array<HTMLImageElement>> {
-
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
@@ -111,7 +100,6 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
   let frames: any = [];
 
   Object.entries(spriteData.frames).forEach(([name, details]) => {
-
     const _details: any = details;
 
     const sprite: Sprite = {
@@ -136,13 +124,10 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
     sprite.frame.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
     frames.push(sprite);
-
   });
 
   if (options.download) {
-
     for (const frame of frames) {
-
       const link: HTMLAnchorElement = document.createElement('a');
 
       link.href = frame.frame.src;
@@ -150,11 +135,8 @@ export async function atlasToSprites(atlasPath: string, jsonPath: string, option
 
       link.click();
       link.remove();
-
     }
-
   }
 
   return frames;
-
 }

@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" height="250" src="./gingerale.png">
+  <img width="250" height="250" src="https://github.com/robertcorponoi/graphics/blob/master/gingerale/gingerale-logo.png?raw=true">
 </p>
 
 <h1 align="center">Gingerale</h1>
