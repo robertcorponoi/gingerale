@@ -1,6 +1,6 @@
 {
   "name": "gingerale",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "module": "gingerale.js",
   "description": "A simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlases.",
   "scripts": {
@@ -29,24 +29,24 @@
   "author": "Robert Corponoi",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
-    "rollup": "^1.29.0",
-    "rollup-plugin-babel": "^4.3.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "rollup": "^2.6.1",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "sinon": "^8.1.0",
-    "typescript": "^3.7.5"
+    "sinon": "^9.0.2",
+    "typescript": "^3.8.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.3"
+    "@babel/runtime": "^7.9.2"
   }
 }
