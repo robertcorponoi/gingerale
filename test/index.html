@@ -2,40 +2,40 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Gingerale Tests</title>
 
+  <!-- Load the mocha stylesheet -->
   <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
-
 </head>
 
 <body>
-
   <div id="mocha"></div>
 
+  <!-- Load the mocha and chai testing packages -->
   <script src="https://unpkg.com/chai/chai.js"></script>
   <script src="https://unpkg.com/mocha/mocha.js"></script>
+  <script src="https://unpkg.com/sinon@9.1.0/pkg/sinon.js"></script>
 
+  <!-- Extra resources we use for testing Gingerale with resource loaders -->
+  <script src="https://unpkg.com/resource-loader@4.0.0-rc4/dist/resource-loader.js"></script>
+
+  <!--Set up the tests -->
   <script class="mocha-init" type="module">
-    
     mocha.setup('bdd');
     mocha.checkLeaks();
-  
   </script>
 
-  <script type="module" src="./tests/spritesheet-to-sprites.js"></script>
-  <script type="module" src="./tests/atlas-to-sprites.js"></script>
-  <script type="module" src="./tests/sprites-to-spritesheet.js"></script>
+  <!-- Load each of our individual test files -->
+  <script type="module" src="./tests/spritesheet_to_sprites.test.js"></script>
+  <script type="module" src="./tests/atlas_to_sprites_xml.test.js"></script>
 
+  <!-- Finally we're ready to run the tests -->
   <script class="mocha-exec" type="module">
-
     mocha.run();
-
   </script>
-
 </body>
 
 </html>
