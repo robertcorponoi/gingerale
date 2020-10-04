@@ -108,7 +108,7 @@ Parses a texture atlas with either a XML or JSON definition file and returns the
 | param                    | type                        | description                                                                                               | default          |
 |--------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------|------------------|
 | spritesheet              | HTMLImageElement            | The texture atlas image element to parse.                                                                 |                  |
-| definition               | (XMLDocument | Object)      | The XML or JSON file that defines the locations and sizes of the individual sprites in the spritesheet.   |                  |
+| definition               | XMLDocument or Object       | The XML or JSON file that defines the locations and sizes of the individual sprites in the spritesheet.   |                  |
 | options                  | SpritesheetToSpritesOptions | The options that can be passed to this method.                                                            |                  |
 | options.jsonPropertyPath | string                      | The path to the sprite details in the JSON if a JSON definition is provided. See the note below for more. | 'frames.$.frame' |
 | options.crossOrigin      | string                      | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere.                 | ''               |
