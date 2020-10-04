@@ -1,7 +1,13 @@
 /**
- * Describes the structure of a sprite's name and frame.
+ * Describes the structure of a Sprite data object when a spritesheet or atlas
+ * is being parsed.
  */
-export default interface Sprite {
+export interface Sprite {
     name: string;
-    frame: HTMLImageElement;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    isRotated: boolean;
+    image: HTMLImageElement;
 }
