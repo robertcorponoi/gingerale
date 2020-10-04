@@ -79,15 +79,15 @@ So if you just care about the sprite image, then you just need the `image` prope
 
 Gets sprites from a uniform spritesheet. A uniform spritesheet is a spritesheet in which every individual sprite in the provided spritesheet must have the same fixed width and height and they are all in a even rows/columns.
 
-| param  | type   | description                                   | default |
-|--------|--------|-----------------------------------------------|---------|
-| spritesheet | HTMLImageElement | The path to the spritesheet. | |
-| width  | number | The width of each sprite in the spritesheet. | |
-| height | number | The height of each sprite in the spritesheet. | |
-| options | SpritesheetToSpritesOptions | The options that can be passed to this method. | |
-| options.name | string | Sets the name of the individual sprites and used as the name for the file if downloaded. | 'sprite' |
-| options.crossOrigin | string | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere. | '' |
-| options.download | boolean | Indicates whether the sprites should be downloaded after they're retrieved or not. | false |
+| param               | type                        | description                                                                               | default  |
+|---------------------|-----------------------------|-------------------------------------------------------------------------------------------|----------|
+| spritesheet         | HTMLImageElement            | The path to the spritesheet.                                                              |          |
+| width               | number                      | The width of each sprite in the spritesheet.                                              |          |
+| height              | number                      | The height of each sprite in the spritesheet.                                             |          |
+| options             | SpritesheetToSpritesOptions | The options that can be passed to this method.                                            |          |
+| options.name        | string                      | Sets the name of the individual sprites and used as the name for the file if downloaded.  | 'sprite' |
+| options.crossOrigin | string                      | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere. | ''       |
+| options.download    | boolean                     | Indicates whether the sprites should be downloaded after they're retrieved or not.        | false    |
 
 **Example:**
 
@@ -105,14 +105,14 @@ const sprites = spritesheetToSprites(spritesheet, 32, 32, { name: 'car' });
 
 Parses a texture atlas with either a XML or JSON definition file and returns the individual sprites.
 
-| param  | type   | description                                   | default |
-|--------|--------|-----------------------------------------------|---------|
-| spritesheet | HTMLImageElement | The texture atlas image element to parse. | |
-| definition  | (XMLDocument | Object) | The XML or JSON file that defines the locations and sizes of the individual sprites in the spritesheet. | |
-| options | SpritesheetToSpritesOptions | The options that can be passed to this method. | |
-| options.jsonPropertyPath | The path to the sprite details in the JSON if a JSON definition is provided. See the documentation for the `AtlasToSpritesOptions` for a more in-depth example. | 'frames.$.frame' |
-| options.crossOrigin | string | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere. | '' |
-| options.download | boolean | Indicates whether the sprites should be downloaded after they're retrieved or not. | false |
+| param                    | type                        | description                                                                                               | default          |
+|--------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------|------------------|
+| spritesheet              | HTMLImageElement            | The texture atlas image element to parse.                                                                 |                  |
+| definition               | (XMLDocument | Object)      | The XML or JSON file that defines the locations and sizes of the individual sprites in the spritesheet.   |                  |
+| options                  | SpritesheetToSpritesOptions | The options that can be passed to this method.                                                            |                  |
+| options.jsonPropertyPath | string                      | The path to the sprite details in the JSON if a JSON definition is provided. See the note below for more. | 'frames.$.frame' |
+| options.crossOrigin      | string                      | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere.                 | ''               |
+| options.download         | boolean                     | Indicates whether the sprites should be downloaded after they're retrieved or not.                        | false            |
 
 **Important Note About Using JSON**
 
@@ -184,10 +184,10 @@ The loaders provide a way to load the spritesheet images and definition XMLs and
 
 Loads a spritesheet image from a path.
 
-| param  | type   | description                                   | default |
-|--------|--------|-----------------------------------------------|---------|
-| path | string | The path to the spritesheet image to load. | |
-| crossOrigin  | string | The cross-origin property to set for the spritesheet image if loading from an outside source. | |
+| param        | type   | description                                                                                   | default |
+|--------------|--------|-----------------------------------------------------------------------------------------------|---------|
+| path         | string | The path to the spritesheet image to load.                                                    |         |
+| crossOrigin  | string | The cross-origin property to set for the spritesheet image if loading from an outside source. |         |
 
 **Example:**
 
@@ -203,7 +203,7 @@ Loads an atlas definition file as XML.
 
 | param  | type   | description                                   | default |
 |--------|--------|-----------------------------------------------|---------|
-| path | string | The path to the XML file to load | |
+| path   | string | The path to the XML file to load.             |         |
 
 **Example:**
 
@@ -219,7 +219,7 @@ Loads an atlas definition file as JSON.
 
 | param  | type   | description                                   | default |
 |--------|--------|-----------------------------------------------|---------|
-| path | string | The path to the JSON file to load | |
+| path   | string | The path to the JSON file to load.            |         |
 
 **Example:**
 
