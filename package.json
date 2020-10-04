@@ -1,8 +1,8 @@
 {
   "name": "gingerale",
-  "version": "2.5.3",
+  "version": "3.0.0",
   "module": "gingerale.js",
-  "description": "A simple and easy to use spritesheet to sprites converter with support for uniform spritesheets and texture atlases.",
+  "description": "Parses spritesheets and texture atlas' into individual sprites.",
   "scripts": {
     "rm:lib": "rm -rf lib",
     "rm:bundle": "rm -rf gingerale.js",
@@ -25,7 +25,9 @@
     "spritesheet",
     "converter",
     "texture",
-    "atlas"
+    "atlas",
+    "parse",
+    "game"
   ],
   "typings": "lib/index.d.ts",
   "author": "Robert Corponoi",

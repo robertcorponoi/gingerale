@@ -3,25 +3,25 @@
 import { spritesheetToSprites, loadSpritesheet } from '../gingerale.js';
 
 describe('Getting individual sprites from a spritesheet', function () {
-  it('should load a spritesheet image using the resource-loader and parse it into individual sprites', async function () {
+  it('should load a spritesheet image using the resource-loader and parse it into individual sprites', function () {
     const loader = new Loader();
 
     loader
       .add('caveman', './assets/spritesheets/caveman.png')
-      .load(async function(_, resources) {
-        const sprites = await spritesheetToSprites(resources.caveman.data, 32, 32, { name: 'caveman_walking' }).catch(err => { throw err; });
+      .load(function(_, resources) {
+        const sprites = spritesheetToSprites(resources.caveman.data, 32, 32, { name: 'caveman_walking' });
 
         chai.expect(sprites.length).to.equal(16);
       });
   });
 
-  it('Individual sprite images returned should have a width and height of 16', async function () {
+  it('Individual sprite images returned should have a width and height of 16', function () {
     const loader = new Loader();
 
     loader
       .add('caveman', './assets/spritesheets/caveman.png')
-      .load(async function (_, resources) {
-        const sprites = await spritesheetToSprites(resources.caveman.data, 32, 32).catch(err => { throw err; });
+      .load(function (_, resources) {
+        const sprites = spritesheetToSprites(resources.caveman.data, 32, 32);
 
         chai.expect(sprites[0].width).to.equal(32);
         chai.expect(sprites[0].height).to.equal(32);
@@ -32,13 +32,13 @@ describe('Getting individual sprites from a spritesheet', function () {
       });
   });
 
-  it('The sprites should have names attached to them defined by the options', async function () {
+  it('The sprites should have names attached to them defined by the options', function () {
     const loader = new Loader();
 
     loader
       .add('caveman', './assets/spritesheets/caveman.png')
-      .load(async function (_, resources) {
-        const sprites = await spritesheetToSprites(resources.caveman.data, 32, 32, { name: 'walking' }).catch(err => { throw err; });
+      .load(function (_, resources) {
+        const sprites = spritesheetToSprites(resources.caveman.data, 32, 32, { name: 'walking' });
 
         chai.expect(sprites[0].name).to.equal('walking_1');
         chai.expect(sprites[4].name).to.equal('walking_5');
@@ -48,8 +48,8 @@ describe('Getting individual sprites from a spritesheet', function () {
   });
 
   it('should load the spritesheet loader using the `loadSpritesheet` method and then parse it', async function () {
-    const cavemanSpritesheet = await loadSpritesheet('./assets/spritesheets/caveman.png');
-    const sprites = await spritesheetToSprites(cavemanSpritesheet, 32, 32, { name: 'caveman_walking' }).catch(err => { throw err; });
+    const cavemanSpritesheet = await loadSpritesheet('./assets/spritesheets/caveman.png').catch(err => { throw err; });
+    const sprites = spritesheetToSprites(cavemanSpritesheet, 32, 32, { name: 'caveman_walking' });
 
     chai.expect(sprites.length).to.equal(16);
   });

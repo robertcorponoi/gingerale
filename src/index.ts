@@ -6,7 +6,8 @@ import { AtlasSpriteData } from './interfaces/atlas_sprite_data';
 import { AtlasToSpritesOptions } from './options/atlas_to_sprites_options';
 import { SpritesheetToSpritesOptions } from './options/spritesheet_to_sprites_options';
 
-import { loadSpritesheet, loadXML, loadJSON } from './loader';
+import { downloadSprites } from './utils';
+import { loadSpritesheet, loadXML, loadJSON } from './loaders';
 
 export {
   loadXML,
@@ -20,19 +21,17 @@ export {
  * in a uniform fashion. Even if you have a uniform spritesheet but it has a XML
  * or JSON definition file, use `atlasToSprites` instead.
  * 
- * @async
- * 
  * @param {HTMLImageElement} spritesheet The spritesheet image element to parse.
  * @param {number} spriteWidth The width of every individual sprite in the spritesheet.
  * @param {number} spriteHeight The height of every individual sprite in the spritesheet.
  * @param {SpritesheetToSpritesOptions} [options] The options that can be passed to this method.
- * @param {string} [options.name='sprite'] Sets the data-attribute to the individual sprite images and used as the name for the sprites if downloaded.
+ * @param {string} [options.name='sprite'] Sets the name of the individual sprites and used as the name for the file if downloaded.
  * @param {string} [options.crossOrigin=''] Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere.
  * @param {boolean} [options.download=false] Indicates whether the sprites should be downloaded after they're retrieved or not.
  * 
- * @returns {Promise<Array<Sprite>>} Returns the individual sprites from the spritesheet.
+ * @returns {Array<Sprite>} Returns the individual sprites from the spritesheet.
  */
-export async function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth: number, spriteHeight: number, options: SpritesheetToSpritesOptions = {}): Promise<Array<Sprite>> {
+export function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth: number, spriteHeight: number, options: SpritesheetToSpritesOptions = {}): Array<Sprite> {
   const name = options.name ? options.name : 'sprite';
 
   const canvas = document.createElement('canvas');
@@ -78,6 +77,7 @@ export async function spritesheetToSprites(spritesheet: HTMLImageElement, sprite
         y: locY,
         width: spriteWidth,
         height: spriteHeight,
+        isRotated: false,
         image: spriteImage,
       };
 
@@ -89,19 +89,7 @@ export async function spritesheetToSprites(spritesheet: HTMLImageElement, sprite
     locX = 0;
   }
 
-  if (options.download) {
-    sprites.forEach((sprite, index) => {
-      // To download the sprites we need to create an anchor tag with the download link
-      // set to the location of the sprite's `src`. We then click on the link to initiate
-      // the download and then remove the link from the DOM.
-      const link = document.createElement('a');
-      link.href = sprite.image.src;
-      link.download = `${sprite.name}_${index}.png`;
-
-      link.click();
-      link.remove();
-    });
-  }
+  if (options.download) downloadSprites(sprites);
 
   return sprites;
 }
@@ -111,23 +99,22 @@ export async function spritesheetToSprites(spritesheet: HTMLImageElement, sprite
  * the sprites are in different orders and sizes with their positions defined by
  * a JSON or XML file.
  * 
- * @async
- * 
- * @param {HTMLImageElement} resource The texture atlas image element or the path to the texture atlas to parse.
- * @param {Object|XMLDocument} definition The file or string contents of the file that contains the positions of the sprites.
+ * @param {HTMLImageElement} spritesheet The texture atlas image element to parse.
+ * @param {Object|XMLDocument} definition The XML or JSON file that defines the locations and sizes of the individual sprites in the spritesheet.
  * @param {AtlasToSpritesOptions} [options]
+ * @param {string} [options.jsonPropertyPath='frames.$.frame'] The path to the sprite details in the JSON if a JSON definition is provided. See the documentation for the `AtlasToSpritesOptions` for a more in-depth example.
  * @param {string} [options.crossOrigin=''] Sets the cross-origin property of the atlas if the atlas is hosted elsewhere.
  * @param {boolean} [options.download=false] Indicates whether the sprites should be downloaded after they're retrieved or not.
  * 
- * @returns {Promise<Array<HTMLImageElement>>} Returns the individual sprites from the atlas.
+ * @returns {Array<Sprite>} Returns the individual sprites from the atlas.
  */
-export async function atlasToSprites(atlas: HTMLImageElement, definition: (Object | XMLDocument), options: AtlasToSpritesOptions = {}): Promise<Array<Sprite>> {
+export function atlasToSprites(spritesheet: HTMLImageElement, definition: (Object | XMLDocument), options: AtlasToSpritesOptions = {}): Array<Sprite> {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
   // If the `atlas` is not a `HTMLImageElement` then we throw an error as we no
   // longer handle loading in the parse methods.
-  if (atlas instanceof HTMLImageElement === false) {
+  if (spritesheet instanceof HTMLImageElement === false) {
     throw new Error('The atlas provided is not a `HTMLImageElement`. If you need to load the atlas first, use the loader methods before passing it to the parser.');
   }
 
@@ -158,14 +145,15 @@ export async function atlasToSprites(atlas: HTMLImageElement, definition: (Objec
       if (spriteEntries.length === 0) throw new Error('Could not find any rows with `x`, `y`, `width`, or `height` attributes');
 
       spriteEntries.forEach(entry => {
-        // Save keep track of the sprite's width and height and then we check to
-        // see if a `rotated` attribute exists.
+        // Keep track of the sprite's width and height and see if a `rotated` attribute exists.
         const width = parseInt(entry.getAttribute('width')! || entry.getAttribute('w')!);
         const height = parseInt(entry.getAttribute('height')! || entry.getAttribute('h')!);
 
         const isRotated = Boolean(entry.getAttribute('rotated'));
         const spriteWidth = isRotated ? height : width;
         const spriteHeight = isRotated ? width : height;
+
+        if (!spriteWidth || !spriteHeight) throw new Error('Could not find a width or height for the sprite entries');
 
         const x = parseInt(entry.getAttribute('x')!);
         const y = parseInt(entry.getAttribute('y')!);
@@ -174,7 +162,7 @@ export async function atlasToSprites(atlas: HTMLImageElement, definition: (Objec
         canvas.width = spriteWidth;
         canvas.height = spriteHeight;
 
-        ctx.drawImage(atlas, x, y, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+        ctx.drawImage(spritesheet, x, y, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
 
         const spriteImage = new Image();
         spriteImage.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
@@ -184,30 +172,79 @@ export async function atlasToSprites(atlas: HTMLImageElement, definition: (Objec
           name: entry.getAttribute('name')!,
           x: x,
           y: y,
-          width: spriteWidth!,
-          height: spriteHeight!,
+          width: spriteWidth,
+          height: spriteHeight,
+          isRotated: isRotated,
           image: spriteImage,
         };
         sprites.push(sprite);
       });
       break;
     case 'json':
+      const jsonDefinition: any = definition as Object;
+
+      // If a property path as provided in the options then we use that otherwise we use the default one.
+      const jsonPropertyPath = options.jsonPropertyPath ? options.jsonPropertyPath : 'frames.$.frame';
+      // Split the property path on periods so that we can use it to navigate the object.
+      const propertyPathSplit = jsonPropertyPath.split('.');
+
+      // We need to know the index of the '$' character which denotes the property that contains the
+      // individual sprite
+      const indexOfSprite = propertyPathSplit.indexOf('$');
+      const propertyPathBeforeSprite = propertyPathSplit.splice(0, indexOfSprite);
+
+      // Now we get the part of the array up until `propertyPathBeforeSprite` so that we can get the
+      // parts of the object that we can iterate. 
+      let allSpritesInJSON = jsonDefinition;
+      propertyPathBeforeSprite.forEach(property => allSpritesInJSON = allSpritesInJSON[property]);
+
+      // Get the last part of the propertyPathSplit without the $ element.
+      const propertyDetailsPath = propertyPathSplit.slice(1);
+
+      for (let spriteDetails in allSpritesInJSON) {
+        let spriteEntry: any = JSON.parse(JSON.stringify(allSpritesInJSON[spriteDetails]));
+
+        // For each sprite in the JSON we have to finish the object lookup with the remaining values
+        // of the `propertyDetailsPath`.
+        propertyDetailsPath.forEach(property => spriteEntry = spriteEntry[property]);
+
+        const entry: AtlasSpriteData = spriteEntry;
+
+        // Keep track of the sprite's width and height and see if we need to rotate it.
+        const width = entry.width || entry.w;
+        const height = entry.height || entry.h;
+        const isRotated = entry.rotated || allSpritesInJSON[spriteDetails].rotated || false;
+
+        const spriteWidth = isRotated ? height : width;
+        const spriteHeight = isRotated ? width : height;
+
+        if (!spriteWidth || !spriteHeight) throw new Error('Could not find a width or height for the sprite entries');
+
+        // Set the canvas to the size of the sprite.
+        canvas.width = spriteWidth;
+        canvas.height = spriteHeight;
+
+        ctx.drawImage(spritesheet, entry.x, entry.y, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+
+        const spriteImage = new Image();
+        spriteImage.src = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+
+        // Lastly we create the Sprite object and add it to `sprites`.
+        const sprite: Sprite = {
+          name: entry.name || spriteDetails,
+          x: entry.x,
+          y: entry.y,
+          width: spriteWidth,
+          height: spriteHeight,
+          isRotated: isRotated,
+          image: spriteImage,
+        };
+        sprites.push(sprite);
+      }
       break;
   }
 
-  if (options.download) {
-    sprites.forEach(sprite => {
-      // If the `download` option is set to `true` when we go through each sprite
-      // in the `sprites` Array, create an anchor element with the `href` attribute
-      // set to the sprite's `src` attribute, click on it to initiate the download
-      // and finally remove it from the DOM.
-      const link = document.createElement('a');
-      link.href = sprite.image.src;
-      link.download = sprite.name;
-      link.click();
-      link.remove();
-    });
-  }
+  if (options.download) downloadSprites(sprites);
 
   return sprites;
 }

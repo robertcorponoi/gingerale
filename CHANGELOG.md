@@ -1,4 +1,6 @@
-## 0.0.0 / 2020-10-01
+## 3.0.0 / 2020-10-01
+- [FEATURE] Removed spritesheet loading by default. The methods now take an image element and if you need to load them first you can use a loader or use the newly created `loadSpritesheet`, `loadXML` and `loadJSON` methods.
+- [FEATURE] Added ability to parse texture atlas' with XML definitions and improved JSON parsing.
 - [MISC] Updated dependencies to their latest versions and fixed security vulnerabilities.
 - [MISC] Replaced rollup-plugin-babel, rollup-plugin-commonjs, and rollup-plugin-node-resolve with @rollup/plugin-babel, @rollup/plugin-commonjs, and @rollup/plugin-node-resolve.
 - [MISC] Added rollup-plugin-terser for smaller file sizes.

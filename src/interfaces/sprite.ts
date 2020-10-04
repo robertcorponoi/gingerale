@@ -10,5 +10,6 @@ export interface Sprite {
   y: number;
   width: number;
   height: number;
+  isRotated: boolean;
   image: HTMLImageElement;
 };
