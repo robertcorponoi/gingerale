@@ -1,5 +1,5 @@
 ## 3.1.1 / 2020-10-04
-- [HOTFIX] Fixed an issue where the `spritesheetToSprites` method was clearing the canvas after drawing resulting in blank sprites.
+- [HOTFIX] Fixed an issue where the `spritesheetToSprites` function was clearing the canvas after drawing resulting in blank sprites.
 
 ## 3.1.0 / 2020-10-04
 - [REMOVED] Removed the option to download sprites after parsing. There are issues with downloading so many files and it's best to leave the functionality to the user.
