@@ -26,7 +26,6 @@ export {
  * @param {SpritesheetToSpritesOptions} [options] The options that can be passed to this method.
  * @param {string} [options.name='sprite'] Sets the name of the individual sprites and used as the name for the file if downloaded.
  * @param {string} [options.crossOrigin=''] Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere.
- * @param {boolean} [options.download=false] Indicates whether the sprites should be downloaded after they're retrieved or not.
  * 
  * @returns {Array<Sprite>} Returns the individual sprites from the spritesheet.
  */
@@ -60,11 +59,10 @@ export function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth:
   for (let i = 0; i < rows; ++i) {
     for (let j = 0; j < cols; ++j) {
       // Draw the portion of the spritesheet where the current sprite should be to the canvas.
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(spritesheet, locX, locY, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
 
       locX += spriteWidth;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Create the sprite object and add it to the `sprites` Array.
       const spriteImage = new Image();
@@ -101,7 +99,6 @@ export function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth:
  * @param {AtlasToSpritesOptions} [options]
  * @param {string} [options.jsonPropertyPath='frames.$.frame'] The path to the sprite details in the JSON if a JSON definition is provided. See the documentation for the `AtlasToSpritesOptions` for a more in-depth example.
  * @param {string} [options.crossOrigin=''] Sets the cross-origin property of the atlas if the atlas is hosted elsewhere.
- * @param {boolean} [options.download=false] Indicates whether the sprites should be downloaded after they're retrieved or not.
  * 
  * @returns {Array<Sprite>} Returns the individual sprites from the atlas.
  */
