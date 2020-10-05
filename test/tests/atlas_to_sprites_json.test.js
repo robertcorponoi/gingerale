@@ -88,6 +88,8 @@ describe('Getting individual sprites from an atlas with a JSON definition file',
     });
 
     it('should use `loadSpritesheet` and `loadJSON` to load the files before they are passed to the parser', async function () {
+        this.timeout(10000);
+        
         const spritesheet = await loadSpritesheet('./assets/atlas/json/walking/walking.png').catch(err => { throw err; });
         const json = await loadJSON('./assets/atlas/json/walking/walking.json').catch(err => { throw err; });
 

@@ -2,7 +2,7 @@
 
 import { atlasToSprites, loadSpritesheet, loadXML } from '../gingerale.js';
 
-describe('Getting individual sprites from an atlas', function () {
+describe('Getting individual sprites from an atlas with a XML definition file', function () {
     it('should load an atlas using the resource-loader and parse it into individual sprites', function () {
         const loader = new Loader();
 
@@ -88,6 +88,8 @@ describe('Getting individual sprites from an atlas', function () {
     });
 
     it('should use `loadSpritesheet` and `loadXML` to load the files before they are passed to the parser', async function () {
+        this.timeout(10000);
+        
         const spritesheet = await loadSpritesheet('./assets/atlas/xml/foilage_pack/foliagePack_default.png').catch(err => { throw err; });
         const xml = await loadXML('./assets/atlas/xml/foilage_pack/foliagePack_default.xml').catch(err => { throw err; });
 

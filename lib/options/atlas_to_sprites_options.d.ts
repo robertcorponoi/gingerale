@@ -4,5 +4,4 @@
 export interface AtlasToSpritesOptions {
     jsonPropertyPath?: string;
     crossOrigin?: string;
-    download?: boolean;
 }

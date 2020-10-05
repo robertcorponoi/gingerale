@@ -85,9 +85,8 @@ Gets sprites from a uniform spritesheet. A uniform spritesheet is a spritesheet 
 | width               | number                      | The width of each sprite in the spritesheet.                                              |          |
 | height              | number                      | The height of each sprite in the spritesheet.                                             |          |
 | options             | SpritesheetToSpritesOptions | The options that can be passed to this method.                                            |          |
-| options.name        | string                      | Sets the name of the individual sprites and used as the name for the file if downloaded.  | 'sprite' |
+| options.name        | string                      | Sets the name of the individual sprites.                                                  | 'sprite' |
 | options.crossOrigin | string                      | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere. | ''       |
-| options.download    | boolean                     | Indicates whether the sprites should be downloaded after they're retrieved or not.        | false    |
 
 **Example:**
 
@@ -112,7 +111,6 @@ Parses a texture atlas with either a XML or JSON definition file and returns the
 | options                  | SpritesheetToSpritesOptions | The options that can be passed to this method.                                                            |                  |
 | options.jsonPropertyPath | string                      | The path to the sprite details in the JSON if a JSON definition is provided. See the note below for more. | 'frames.$.frame' |
 | options.crossOrigin      | string                      | Sets the cross-origin property of the spritesheet if the spritesheet is hosted elsewhere.                 | ''               |
-| options.download         | boolean                     | Indicates whether the sprites should be downloaded after they're retrieved or not.                        | false            |
 
 **Important Note About Using JSON**
 

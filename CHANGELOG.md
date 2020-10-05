@@ -1,3 +1,7 @@
+## 3.1.0 / 2020-10-04
+- [REMOVED] Removed the option to download sprites after parsing. There are issues with downloading so many files and it's best to leave the functionality to the user.
+- [MISC] Fixed wording in error thrown in `spritesheetToSprites`.
+
 ## 3.0.0 / 2020-10-01
 - [FEATURE] Removed spritesheet loading by default. The methods now take an image element and if you need to load them first you can use a loader or use the newly created `loadSpritesheet`, `loadXML` and `loadJSON` methods.
 - [FEATURE] Added ability to parse texture atlas' with XML definitions and improved JSON parsing.

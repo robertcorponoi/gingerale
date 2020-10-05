@@ -4,5 +4,4 @@
 export interface SpritesheetToSpritesOptions {
     name?: string;
     crossOrigin?: string;
-    download?: boolean;
 }

@@ -6,7 +6,6 @@ import { AtlasSpriteData } from './interfaces/atlas_sprite_data';
 import { AtlasToSpritesOptions } from './options/atlas_to_sprites_options';
 import { SpritesheetToSpritesOptions } from './options/spritesheet_to_sprites_options';
 
-import { downloadSprites } from './utils';
 import { loadSpritesheet, loadXML, loadJSON } from './loaders';
 
 export {
@@ -40,7 +39,7 @@ export function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth:
   // If the `atlas` is not a `HTMLImageElement` then we throw an error as we no
   // longer handle loading in the parse methods.
   if (spritesheet instanceof HTMLImageElement === false) {
-    throw new Error('The atlas provided is not a `HTMLImageElement`. If you need to load the atlas first, use the loader methods before passing it to the parser.');
+    throw new Error('The spritesheet provided is not a `HTMLImageElement`. If you need to load the atlas first, use the loader methods before passing it to the parser.');
   }
 
   canvas.width = spriteWidth;
@@ -88,8 +87,6 @@ export function spritesheetToSprites(spritesheet: HTMLImageElement, spriteWidth:
     locY += spriteHeight;
     locX = 0;
   }
-
-  if (options.download) downloadSprites(sprites);
 
   return sprites;
 }
@@ -243,8 +240,6 @@ export function atlasToSprites(spritesheet: HTMLImageElement, definition: (Objec
       }
       break;
   }
-
-  if (options.download) downloadSprites(sprites);
 
   return sprites;
 }
